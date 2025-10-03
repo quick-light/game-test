@@ -14,7 +14,9 @@ var render = Render.create({
     engine: engine
 });
 
-var plrspeed = 0.1
+var plrspeed = 0.05
+var jumpforce = 0.08
+var boxsize = 40
 
 // create two boxes and a ground
 var charObj = Bodies.rectangle(300, 120, 40, 40, {friction: 0.5});
@@ -38,9 +40,9 @@ targetElement.addEventListener('click', (event) => {
     const mouseX = event.clientX; // X coordinate relative to the viewport
     const mouseY = event.clientY; // Y coordinate relative to the viewport
 
-    var boxC = Bodies.rectangle(mouseX, mouseY, 40, 40);
+    var boxC = Bodies.rectangle(mouseX, mouseY, boxsize, boxsize);
     Composite.add(engine.world, [boxC]);
-    console.log('evil boxy boo');
+    //console.log('evil boxy boo');
 });
 targetElement.addEventListener('keydown', (event) => {
   // The 'event' object contains information about the key press
@@ -49,13 +51,27 @@ targetElement.addEventListener('keydown', (event) => {
 
   if (pressedKey === 'a') {
     charObj.force.x -= plrspeed;
-    console.log()
   }
   if (pressedKey === 'd') {
     charObj.force.x += plrspeed;
   }
-  if (pressedKey === 'f') {
-    console.log(charObj);
+  if (pressedKey === 'w') {
+    charObj.force.y += jumpforce;
+  }
+  if (pressedKey === 's') {
+    charObj.force.x = 0;
+    charObj.force.y = 0;
+  }
+  if (pressedKey === 'e') {
+    boxsize += 10;
+    console.log("changed boxsize to "+boxsize)
+  }
+  if (pressedKey === 'q') {
+    boxsize -= 10;
+    if (boxsize < 0) {
+    boxsize = 10;
+    }
+    console.log("changed boxsize to "+boxsize)
   }
   if (pressedKey === ' ') {
     event.preventDefault();
