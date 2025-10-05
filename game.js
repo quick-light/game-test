@@ -56,7 +56,7 @@ targetElement.addEventListener('keydown', (event) => {
     charObj.force.x += plrspeed;
   }
   if (pressedKey === 'w') {
-    charObj.force.y += jumpforce;
+    charObj.force.y -= jumpforce;
   }
   if (pressedKey === 's') {
     charObj.force.x = 0;
