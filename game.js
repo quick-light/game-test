@@ -14,9 +14,11 @@ var render = Render.create({
     engine: engine
 });
 
-var plrspeed = 0.05
+var plrspeed = 0.03
 var jumpforce = 0.08
 var boxsize = 40
+var moveDirX = 0
+var isHoldingSpace = false
 
 // create two boxes and a ground
 var charObj = Bodies.rectangle(300, 120, 40, 40, {friction: 0.5});
@@ -50,13 +52,22 @@ targetElement.addEventListener('keydown', (event) => {
   //console.log(`Key pressed: ${pressedKey}`);
 
   if (pressedKey === 'a') {
-    charObj.force.x -= plrspeed;
+    //charObj.force.x -= plrspeed;
+    if (moveDirX != -1) {
+        moveDirX = -1
+    }
   }
   if (pressedKey === 'd') {
-    charObj.force.x += plrspeed;
+    //charObj.force.x += plrspeed;
+    if (moveDirX != 1) {
+        moveDirX = 1
+    }
   }
   if (pressedKey === 'w') {
-    charObj.force.y -= jumpforce;
+    if (holdingSpace == false) {
+        holdingSpace = true
+    }
+    //charObj.force.y -= jumpforce;
   }
   if (pressedKey === 's') {
     charObj.force.x = 0;
@@ -81,6 +92,25 @@ targetElement.addEventListener('keyup', (event) => {
   // The 'event' object contains information about the key press
   const pressedKey = event.key;
   //console.log(`Key pressed: ${pressedKey}`);
+
+  if (pressedKey === 'a') {
+    //charObj.force.x -= plrspeed;
+    if (moveDirX === -1) {
+        moveDirX = 0
+    }
+  }
+  if (pressedKey === 'd') {
+    //charObj.force.x += plrspeed;
+    if (moveDirX === 1) {
+        moveDirX = 0
+    }
+  }
+  if (pressedKey === 'w') {
+    if (holdingSpace == false) {
+        holdingSpace = true
+    }
+    //charObj.force.y -= jumpforce;
+  }
 
   
   if (pressedKey === ' ') {
