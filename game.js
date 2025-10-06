@@ -117,3 +117,8 @@ targetElement.addEventListener('keyup', (event) => {
     event.preventDefault();
   }
 });
+
+
+while (true) {
+    charObj.force.x = moveDirX * plrspeed;
+}
